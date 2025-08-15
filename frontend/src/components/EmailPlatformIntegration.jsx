@@ -22,7 +22,7 @@ import {
   Clock
 } from 'lucide-react'
 
-const API_BASE_URL = 'http://localhost:5001/api'
+const API_BASE_URL = 'https://77h9ikcwe13v.manus.space/api'
 
 export default function EmailPlatformIntegration() {
   const [platforms, setPlatforms] = useState(null)

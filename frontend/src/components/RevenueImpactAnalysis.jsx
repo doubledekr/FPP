@@ -6,7 +6,7 @@ import { Progress } from '@/components/ui/progress'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
 import { DollarSign, TrendingUp, Users, Target } from 'lucide-react'
 
-const API_BASE_URL = 'http://localhost:5001/api'
+const API_BASE_URL = 'https://77h9ikcwe13v.manus.space/api'
 
 export default function RevenueImpactAnalysis() {
   const [aggregateData, setAggregateData] = useState(null)

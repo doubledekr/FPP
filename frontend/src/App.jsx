@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -9,9 +9,10 @@ import { Users, TrendingUp, Mail, Target, AlertTriangle, CheckCircle, DollarSign
 import RevenueImpactAnalysis from './components/RevenueImpactAnalysis'
 import ABTestingLab from './components/ABTestingLab'
 import EmailPlatformIntegration from './components/EmailPlatformIntegration'
+import SalesforceIntegration from './components/SalesforceIntegration'
 import './App.css'
 
-const API_BASE_URL = 'http://localhost:5001/api'
+const API_BASE_URL = 'https://77h9ikcwe13v.manus.space/api'
 
 function App() {
   const [dashboardData, setDashboardData] = useState(null)
@@ -136,7 +137,7 @@ function App() {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-7">
+          <TabsList className="grid w-full grid-cols-8">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="subscribers">Subscribers</TabsTrigger>
             <TabsTrigger value="personalization">Personalization</TabsTrigger>
@@ -144,6 +145,7 @@ function App() {
             <TabsTrigger value="revenue-impact">Revenue Impact</TabsTrigger>
             <TabsTrigger value="ab-testing">A/B Testing</TabsTrigger>
             <TabsTrigger value="email-integration">Email Integration</TabsTrigger>
+            <TabsTrigger value="salesforce">Salesforce CRM</TabsTrigger>
           </TabsList>
 
           {/* Overview Tab */}
@@ -447,6 +449,11 @@ function App() {
           {/* Email Integration Tab */}
           <TabsContent value="email-integration" className="space-y-6">
             <EmailPlatformIntegration />
+          </TabsContent>
+
+          {/* Salesforce CRM Tab */}
+          <TabsContent value="salesforce" className="space-y-6">
+            <SalesforceIntegration />
           </TabsContent>
         </Tabs>
       </main>

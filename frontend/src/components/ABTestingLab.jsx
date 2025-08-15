@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Checkbox } from '@/components/ui/checkbox'
 import { FlaskConical, Target, TrendingUp, Users, Copy, RefreshCw } from 'lucide-react'
 
-const API_BASE_URL = 'http://localhost:5001/api'
+const API_BASE_URL = 'https://77h9ikcwe13v.manus.space/api'
 
 export default function ABTestingLab() {
   const [subjectLineTest, setSubjectLineTest] = useState({

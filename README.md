@@ -1,8 +1,30 @@
-# PersonalizeAI MVP
+# PersonalizeAI MVP - Replit Ready
 
 **AI-Powered Newsletter Personalization Platform for Financial Publishers**
 
 PersonalizeAI is a comprehensive SaaS solution that transforms generic newsletters into personalized experiences for each subscriber, specifically designed for financial publishers and research firms.
+
+## 🚀 **Quick Start on Replit**
+
+### **Option 1: Import from GitHub (Recommended)**
+1. **Fork/Import Repository** to your Replit account
+2. **Set Environment Variables** in Replit Secrets:
+   ```
+   OPENAI_API_KEY=your_openai_api_key_here
+   ```
+3. **Click Run** - Everything starts automatically!
+
+### **Option 2: Manual Setup**
+1. **Clone this repository** to Replit
+2. **Install dependencies** (automatic on first run)
+3. **Set environment variables** in Replit Secrets
+4. **Run the application**
+
+### **Replit Configuration**
+- **Automatic setup** with Python 3.11 + Node.js 20
+- **SQLite database** with demo data pre-loaded
+- **CORS enabled** for frontend-backend communication
+- **Port configuration** optimized for Replit hosting
 
 ## 🚀 Features
 

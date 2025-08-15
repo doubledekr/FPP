@@ -12,7 +12,20 @@ import EmailPlatformIntegration from './components/EmailPlatformIntegration'
 import SalesforceIntegration from './components/SalesforceIntegration'
 import './App.css'
 
-const API_BASE_URL = 'https://77h9ikcwe13v.manus.space/api'
+// Replit-compatible API URL detection
+const getApiBaseUrl = () => {
+  if (typeof window !== 'undefined') {
+    const hostname = window.location.hostname;
+    if (hostname.includes('replit.dev') || hostname.includes('repl.co')) {
+      // Replit environment - use same domain with port 5001
+      return `https://${hostname.replace(/:\d+/, '')}:5001/api`;
+    }
+  }
+  // Fallback for development and other environments
+  return import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 function App() {
   const [dashboardData, setDashboardData] = useState(null)

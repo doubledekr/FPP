@@ -29,6 +29,19 @@ const SalesforceIntegration = () => {
   const [syncing, setSyncing] = useState(false);
   const [demoScenarios, setDemoScenarios] = useState(null);
 
+  // Replit-compatible API URL detection
+  const getApiBaseUrl = () => {
+    if (typeof window !== 'undefined') {
+      const hostname = window.location.hostname;
+      if (hostname.includes('replit.dev') || hostname.includes('repl.co')) {
+        return `https://${hostname.replace(/:\d+/, '')}:5001/api`;
+      }
+    }
+    return import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+  };
+
+  const API_BASE_URL = getApiBaseUrl();
+
   useEffect(() => {
     fetchSalesforceData();
   }, []);
@@ -38,17 +51,17 @@ const SalesforceIntegration = () => {
       setLoading(true);
       
       // Fetch connection status
-      const statusResponse = await fetch('https://77h9ikcwe13v.manus.space/api/salesforce/connection/status');
+      const statusResponse = await fetch(`${API_BASE_URL}/salesforce/connection/status`);
       const statusData = await statusResponse.json();
       setConnectionStatus(statusData.connection);
 
       // Fetch dashboard data
-      const dashboardResponse = await fetch('https://77h9ikcwe13v.manus.space/api/salesforce/dashboard/data');
+      const dashboardResponse = await fetch(`${API_BASE_URL}/salesforce/dashboard/data`);
       const dashboardResult = await dashboardResponse.json();
       setDashboardData(dashboardResult.dashboard_data);
 
       // Fetch demo scenarios
-      const scenariosResponse = await fetch('https://77h9ikcwe13v.manus.space/api/salesforce/demo/scenarios');
+      const scenariosResponse = await fetch(`${API_BASE_URL}/salesforce/demo/scenarios`);
       const scenariosResult = await scenariosResponse.json();
       setDemoScenarios(scenariosResult.demo_scenarios);
 
@@ -62,7 +75,7 @@ const SalesforceIntegration = () => {
   const handleBulkSync = async () => {
     try {
       setSyncing(true);
-      const response = await fetch('https://77h9ikcwe13v.manus.space/api/salesforce/sync/bulk', {
+      const response = await fetch(`${API_BASE_URL}/salesforce/sync/bulk`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ subscriber_ids: [1, 2, 3, 4, 5, 6, 7, 8] })
@@ -81,7 +94,7 @@ const SalesforceIntegration = () => {
 
   const handleCreateOpportunity = async (subscriberId) => {
     try {
-      const response = await fetch('https://77h9ikcwe13v.manus.space/api/salesforce/opportunities/create', {
+      const response = await fetch(`${API_BASE_URL}/salesforce/opportunities/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ subscriber_id: subscriberId })

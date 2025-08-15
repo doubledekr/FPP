@@ -327,6 +327,10 @@ def main():
     with app.app_context():
         DemoDataSeeder.seed_all()
 
+def seed_demo_data():
+    """Simple function for Replit compatibility"""
+    return DemoDataSeeder.seed_all()
+
 if __name__ == '__main__':
     main()
 

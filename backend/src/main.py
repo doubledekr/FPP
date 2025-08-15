@@ -14,20 +14,35 @@ from src.routes.salesforce import salesforce_bp
 app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), 'static'))
 app.config['SECRET_KEY'] = 'asdf#FGSgvasgf$5$WGT'
 
-# Enable CORS for all routes
-CORS(app)
+# Enable CORS for all routes - Replit compatibility
+CORS(app, origins=['*'], allow_headers=['*'], methods=['*'])
 
 app.register_blueprint(user_bp, url_prefix='/api')
 app.register_blueprint(personalization_bp, url_prefix='/api')
 app.register_blueprint(advanced_bp, url_prefix='/api/advanced')
 app.register_blueprint(salesforce_bp, url_prefix='/api/salesforce')
 
-# Database configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(os.path.dirname(__file__), 'database', 'app.db')}"
+# Database configuration - Replit compatible
+database_path = os.path.join(os.path.dirname(__file__), 'database', 'app.db')
+os.makedirs(os.path.dirname(database_path), exist_ok=True)
+app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{database_path}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
+
+# Initialize database
 with app.app_context():
     db.create_all()
+    
+    # Seed demo data if database is empty
+    from src.models.subscriber import Subscriber
+    if Subscriber.query.count() == 0:
+        print("🌱 Seeding demo data...")
+        try:
+            from src.demo_data_seeder import seed_demo_data
+            seed_demo_data()
+            print("✅ Demo data seeded successfully!")
+        except Exception as e:
+            print(f"⚠️ Could not seed demo data: {e}")
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
@@ -45,6 +60,12 @@ def serve(path):
         else:
             return "index.html not found", 404
 
+@app.route('/health')
+def health_check():
+    """Health check endpoint for Replit"""
+    return {"status": "healthy", "service": "PersonalizeAI Backend", "version": "1.0.0"}
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    # Replit-compatible server configuration
+    port = int(os.environ.get('PORT', 5001))
+    app.run(host='0.0.0.0', port=port, debug=True)
